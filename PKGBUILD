@@ -3,7 +3,7 @@
 
 pkgname=yubico-piv-tool
 pkgver=2.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Tool to interact with the PIV applet on a YubiKey NEO"
 arch=('aarch64' 'armv7h' 'i686' 'x86_64')
 license=('GPL3')
