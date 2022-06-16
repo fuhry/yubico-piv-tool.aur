@@ -1,0 +1,28 @@
+diff -Naur a/ykcs11/tests/ykcs11_tests_util.c b/ykcs11/tests/ykcs11_tests_util.c
+--- a/ykcs11/tests/ykcs11_tests_util.c	2022-02-23 08:54:47.000000000 -0500
++++ b/ykcs11/tests/ykcs11_tests_util.c	2022-06-16 14:35:13.771995104 -0400
+@@ -281,7 +281,7 @@
+   CK_BYTE     digest_update[128] = {0};
+   CK_ULONG    digest_update_len;
+   CK_BYTE     hdata[128] = {0};
+-  CK_ULONG    hdata_len;
++  CK_ULONG    hdata_len = 0;
+ 
+   CK_MECHANISM mech = {mech_type, NULL, 0};
+ 
+@@ -1039,6 +1039,7 @@
+ 
+       // External verification
+       if(evp != NULL) {
++        hdata_len = 0;
+         asrt(get_digest(mech_type, data, sizeof(data), hdata, &hdata_len), CKR_OK, "GET DIGEST");
+         ctx = EVP_PKEY_CTX_new(evp, NULL);
+         asrt(ctx != NULL, 1, "EVP_KEY_CTX_new");
+@@ -1224,6 +1225,7 @@
+       asrt(dec_len, data_len, "DECRYPTED DATA LEN");
+       asrt(memcmp(data, dec, dec_len), 0, "DECRYPTED DATA");
+       free(dec);
++      dec = NULL;
+ 
+       // Decrypt Update
+       asrt(funcs->C_DecryptInit(session, &mech, obj_pvtkey[i]), CKR_OK, "DECRYPT INIT");
